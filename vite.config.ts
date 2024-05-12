@@ -13,6 +13,7 @@ export default defineConfig({
       utils: '/src/utils',
       assets: '/src/assets',
       services: '/src/services',
+      styles: '/src/styles',
     },
   },
 })
