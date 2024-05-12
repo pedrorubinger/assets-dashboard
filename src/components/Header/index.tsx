@@ -2,10 +2,18 @@ import Logo from 'src/assets/logo-tractian.svg'
 import GoldIcon from 'src/assets/gold-icon.svg'
 import { Box, ButtonBox } from 'src/components/Header/styles'
 import { Button } from 'src/components/Button'
+import { SkeletonLoader } from 'src/components/Skeleton/styles'
+import { Company } from 'src/interfaces/company'
 
-interface Props {}
+interface Props {
+  isLoading?: boolean
+  companies?: Company[]
+}
 
-export const Header: React.FC<Props> = () => {
+export const Header: React.FC<Props> = ({
+  companies = [],
+  isLoading = false,
+}) => {
   return (
     <Box>
       <div>
@@ -13,13 +21,13 @@ export const Header: React.FC<Props> = () => {
       </div>
 
       <ButtonBox>
-        <Button iconSrc={GoldIcon}>Apex unit</Button>
-        <Button iconSrc={GoldIcon} variant="secondary">
-          Tobias unit
-        </Button>
-        <Button iconSrc={GoldIcon} variant="secondary">
-          Jaguar unit
-        </Button>
+        {!!isLoading && <SkeletonLoader />}
+        {!isLoading &&
+          companies.map((company) => (
+            <Button key={company.id} iconSrc={GoldIcon}>
+              {company.name} unit
+            </Button>
+          ))}
       </ButtonBox>
     </Box>
   )
