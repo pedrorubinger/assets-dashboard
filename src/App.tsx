@@ -1,7 +1,12 @@
+import { Dashboard } from 'src/pages/dashboard'
+import { Theme } from 'src/styles/theme'
+
 export const App = () => {
   return (
     <>
-      <p>Assets Dashboard</p>
+      <Theme theme="light">
+        <Dashboard />
+      </Theme>
     </>
   )
 }
