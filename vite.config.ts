@@ -14,6 +14,7 @@ export default defineConfig({
       assets: '/src/assets',
       services: '/src/services',
       styles: '/src/styles',
+      store: '/src/store',
     },
   },
 })
