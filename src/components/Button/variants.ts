@@ -8,4 +8,10 @@ export const ButtonSizes: { [key in ButtonSize]: ButtonSizeItem } = {
     paddingVertical: Sizes.xsm1,
     paddingHorizontal: Sizes.sm,
   },
+  md: {
+    fontSize: Sizes.sm3,
+    borderRadius: Sizes.xsm1,
+    paddingVertical: Sizes.xsm2,
+    paddingHorizontal: Sizes.md,
+  },
 }

@@ -4,7 +4,6 @@ import { Sizes } from 'src/styles/tokens/sizes'
 import { ButtonSizes } from 'src/components/Button/variants'
 import { ButtonSize, ButtonVariant } from 'src/interfaces/button'
 import { Theme } from 'src/interfaces/theme'
-import { Colors } from 'src/styles/tokens/colors'
 
 export const Box = styled.div`
   background-color: ${({ theme }) => theme.headerBackgroundColor};
@@ -45,17 +44,22 @@ const getColor = (theme: Theme, variant: ButtonVariant) => {
 }
 
 const getBackgroundColorHover = (theme: Theme, variant: ButtonVariant) => {
-  if (variant === 'outlined') return theme.buttonOutlinedBackgroundColor
+  if (variant === 'outlined') return theme.buttonBackgroundColorOutlinedHover
 
-  return Colors.blue800
+  return theme.buttonBackgroundColorHover
 }
 
 export const StyledButton = styled.button<ButtonProps>`
   font-size: ${({ size = 'sm' }) => ButtonSizes[size].fontSize}px;
 
+  display: flex;
+  align-items: center;
+
   padding: ${({ size = 'sm' }) =>
     `${ButtonSizes[size].paddingVertical}px ${ButtonSizes[size].paddingHorizontal}px`};
 
+  border: none;
+  border-style: solid;
   border-color: ${({ theme, variant }) => getBorderColor(theme, variant)};
   border-radius: ${({ size = 'sm' }) => ButtonSizes[size].borderRadius}px;
   border-width: ${({ variant }) => getBorderWidth(variant)};

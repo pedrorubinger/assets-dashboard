@@ -1,4 +1,4 @@
-export type ButtonSize = 'sm'
+export type ButtonSize = 'sm' | 'md'
 
 export interface ButtonSizeItem {
   fontSize: number
