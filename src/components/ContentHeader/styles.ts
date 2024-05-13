@@ -5,6 +5,13 @@ import styled from 'styled-components'
 export const Box = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 510px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: ${Sizes.sm}px;
+  }
 `
 
 export const TitleBox = styled.div`
