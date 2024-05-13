@@ -8,15 +8,20 @@ import {
   TitleBox,
 } from 'src/components/ContentHeader/styles'
 import { Button } from 'src/components/Button'
+import { useCompanyStore } from 'src/store/company'
 
 interface Props {}
 
 export const ContentHeader: React.FC<Props> = () => {
+  const { company } = useCompanyStore()
+
+  const companyName = company?.name
+
   return (
     <Box>
       <TitleBox>
         <Title>Ativos</Title>
-        <SubTitle>/ Apex Unit</SubTitle>
+        {!!companyName && <SubTitle>/ {companyName} Unit</SubTitle>}
       </TitleBox>
 
       <StatusBox>
