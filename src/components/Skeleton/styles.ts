@@ -1,3 +1,4 @@
+import { Colors } from 'src/styles/tokens/colors'
 import styled, { keyframes } from 'styled-components'
 
 const loaderAnimation = keyframes`
@@ -21,13 +22,17 @@ const loaderAnimation = keyframes`
   }
 `
 
-export const SkeletonLoader = styled.div`
+interface Props {
+  color?: keyof typeof Colors
+}
+
+export const SkeletonLoader = styled.div<Props>`
   width: 60px;
   height: 40px;
   --g: radial-gradient(
       farthest-side,
       #0000 calc(95% - 3px),
-      #fff calc(100% - 3px) 98%,
+      ${({ color = 'white' }) => Colors[color]} calc(100% - 3px) 98%,
       #0000 101%
     )
     no-repeat;
