@@ -4,6 +4,7 @@ import { Colors } from 'src/styles/tokens/colors'
 export const lightTheme: Theme = {
   color: Colors.black,
   backgroundColor: Colors.gray150,
+  contentBackgroundColor: Colors.white,
   headerBackgroundColor: Colors.gray850,
 
   buttonPrimaryBackgroundColor: Colors.blue500,
@@ -14,5 +15,8 @@ export const lightTheme: Theme = {
 
   buttonOutlinedBackgroundColor: Colors.white,
   buttonOutlinedBorderColor: Colors.gray200,
-  buttonOutlinedColor: Colors.gray150,
+  buttonOutlinedColor: Colors.gray600,
+
+  buttonBackgroundColorHover: Colors.blue800,
+  buttonBackgroundColorOutlinedHover: Colors.gray200,
 }

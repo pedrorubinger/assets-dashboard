@@ -1,6 +1,7 @@
 export interface Theme {
   color: string
   backgroundColor: string
+  contentBackgroundColor: string
   headerBackgroundColor: string
 
   buttonPrimaryBackgroundColor: string
@@ -12,6 +13,9 @@ export interface Theme {
   buttonOutlinedBackgroundColor: string
   buttonOutlinedBorderColor: string
   buttonOutlinedColor: string
+  buttonBackgroundColorOutlinedHover: string
+
+  buttonBackgroundColorHover: string
 }
 
 export type ThemeOption = 'light' | 'dark'
