@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react'
 import { Header } from 'src/components/Header'
 import { getCompanies } from 'src/services/companies'
 import { Company } from 'src/interfaces/company'
+import { ContentBox } from 'src/components/ContentBox'
+import { Box } from 'src/pages/dashboard/styles'
+import { ContentHeader } from 'src/components/ContentHeader'
 
 interface Props {}
 
@@ -33,8 +36,11 @@ export const Dashboard: React.FC<Props> = () => {
   }, [])
 
   return (
-    <>
+    <Box>
       <Header isLoading={isLoading} companies={companies} />
-    </>
+      <ContentBox>
+        <ContentHeader />
+      </ContentBox>
+    </Box>
   )
 }
