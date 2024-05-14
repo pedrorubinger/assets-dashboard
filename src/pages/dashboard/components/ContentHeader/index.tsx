@@ -6,13 +6,13 @@ import {
   SubTitle,
   Title,
   TitleBox,
-} from 'src/components/ContentHeader/styles'
+} from 'src/pages/dashboard/components/ContentHeader/styles'
 import { Button } from 'src/components/Button'
 import { useCompanyStore } from 'src/store/company'
 
 interface Props {}
 
-export const ContentHeader: React.FC<Props> = () => {
+export const DashboardContentHeader: React.FC<Props> = () => {
   const { company } = useCompanyStore()
 
   const companyName = company?.name
