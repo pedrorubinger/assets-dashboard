@@ -6,19 +6,58 @@ import { SkeletonLoader } from 'src/components/Skeleton/styles'
 import { Company } from 'src/interfaces/company'
 import { useCompanyStore } from 'src/store/company'
 import { ButtonVariant } from 'src/interfaces/button'
+import { WindowEvent } from 'src/utils/constants/windowEvent'
+import { useCallback, useEffect, useState } from 'react'
+import { getCompanies } from 'src/services/companies'
 
-interface Props {
-  isLoading?: boolean
-  companies?: Company[]
-}
+interface Props {}
 
-export const Header: React.FC<Props> = ({
-  companies = [],
-  isLoading = false,
-}) => {
+export const Header: React.FC<Props> = ({}) => {
+  const [isMounted, setIsMounted] = useState(false)
+  const [isFetching, setisFetching] = useState(false)
+  const [companies, setCompanies] = useState<Company[]>([])
+
   const { company, setCompany } = useCompanyStore()
 
-  const onSelectCompany = (company: Company) => setCompany(company)
+  const isLoading = !isMounted || isFetching
+
+  const onSelectCompany = (company: Company) => {
+    setCompany(company)
+    window.dispatchEvent(
+      new CustomEvent(WindowEvent.COMPANY_CHANGED, { detail: { company } }),
+    )
+  }
+
+  const fetchData = useCallback(async () => {
+    setisFetching(true)
+
+    const { data: companiesData, error: errorOnFetchCompanies } =
+      await getCompanies()
+
+    if (companiesData) setCompanies(companiesData)
+
+    if (errorOnFetchCompanies) {
+      /* For future implementations, handle error properly. */
+    }
+
+    setisFetching(false)
+  }, [])
+
+  useEffect(() => {
+    setIsMounted(true)
+
+    return () => {
+      setIsMounted(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
+
+  useEffect(() => {
+    if (!company && companies.length) setCompany(companies[0])
+  }, [company, companies])
 
   return (
     <Box>

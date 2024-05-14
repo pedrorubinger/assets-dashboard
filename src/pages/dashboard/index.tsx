@@ -1,70 +1,36 @@
-import { useEffect, useState } from 'react'
-
 import { Header } from 'src/components/Header'
-import { getCompanies } from 'src/services/companies'
-import { Company } from 'src/interfaces/company'
 import { ContentBox } from 'src/components/ContentBox'
-import { Box, SectionBox } from 'src/pages/dashboard/styles'
-import { ContentHeader } from 'src/components/ContentHeader'
-import { useCompanyStore } from 'src/store/company'
 import { SkeletonLoader } from 'src/components/Skeleton/styles'
 import { ContentSection } from 'src/components/ContentSection'
+import { useFetchAssetTreeData } from 'src/pages/dashboard/hooks/useFetchAssetTreeData'
+import { Box, SectionBox } from 'src/pages/dashboard/styles'
+import { DashboardContentHeader } from 'src/pages/dashboard/components/ContentHeader'
+import { AssetTree } from 'src/pages/dashboard/components/AssetTree'
+import { useCompanyStore } from 'src/store/company'
 
 interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
-  const [isMounted, setIsMounted] = useState(false)
-  const [isFetching, setisFetching] = useState(false)
-  const [companies, setCompanies] = useState<Company[]>([])
+  const { company } = useCompanyStore()
+  const { isLoading, companyLocations } = useFetchAssetTreeData({
+    companyId: company?.id,
+  })
 
-  const { company, setCompany } = useCompanyStore()
-
-  const isLoading = !isMounted || isFetching
-
-  const fetchData = async () => {
-    setisFetching(true)
-
-    const { data, error } = await getCompanies()
-
-    if (data) {
-      setCompanies(data)
-
-      if (!company) setCompany(data[0])
-    }
-
-    if (error) {
-      /* For future implementations, handle error properly. */
-    }
-
-    setisFetching(false)
-  }
-
-  useEffect(() => {
-    setIsMounted(true)
-    fetchData()
-
-    return () => {
-      setIsMounted(false)
-    }
-  }, [])
+  console.log('companyLocations', companyLocations)
 
   return (
     <Box>
-      <Header isLoading={isLoading} companies={companies} />
+      <Header />
       <ContentBox>
-        {!!isLoading && <SkeletonLoader color="blue900" />}
+        {!!isLoading && <SkeletonLoader color="gray500" />}
         {!isLoading && (
           <>
-            <ContentHeader />
+            <DashboardContentHeader />
             <SectionBox>
-              <ContentSection>
-                {/*  */}
-                Hello
-              </ContentSection>
+              <AssetTree />
 
               <ContentSection title="MOTOR RT COAL AF01">
-                {/*  */}
-                Hello
+                <span></span>
               </ContentSection>
             </SectionBox>
           </>
