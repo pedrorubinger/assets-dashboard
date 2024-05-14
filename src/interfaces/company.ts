@@ -8,7 +8,3 @@ export interface CompanyLocation {
   name: string
   parentId: string | null
 }
-
-export interface CompanyAsset {
-  id: string
-}
