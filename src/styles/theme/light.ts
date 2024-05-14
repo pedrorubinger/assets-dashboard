@@ -5,6 +5,7 @@ export const lightTheme: Theme = {
   color: Colors.black,
   backgroundColor: Colors.gray150,
   contentBackgroundColor: Colors.white,
+  contentSectionBackgroundColor: Colors.white,
   headerBackgroundColor: Colors.gray850,
 
   buttonPrimaryBackgroundColor: Colors.blue500,

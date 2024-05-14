@@ -2,6 +2,7 @@ export interface Theme {
   color: string
   backgroundColor: string
   contentBackgroundColor: string
+  contentSectionBackgroundColor: string
   headerBackgroundColor: string
 
   buttonPrimaryBackgroundColor: string
