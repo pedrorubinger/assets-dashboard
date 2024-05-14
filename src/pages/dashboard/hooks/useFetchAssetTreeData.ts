@@ -46,9 +46,5 @@ export const useFetchAssetTreeData = ({ companyId }: Params) => {
     }
   }, [companyId])
 
-  const data = { locations, assets }
-
-  console.log('data', data)
-
-  return { isLoading, data }
+  return { isLoading, data: { locations, assets } }
 }
