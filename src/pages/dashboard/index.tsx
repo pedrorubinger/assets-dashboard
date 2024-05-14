@@ -4,10 +4,11 @@ import { Header } from 'src/components/Header'
 import { getCompanies } from 'src/services/companies'
 import { Company } from 'src/interfaces/company'
 import { ContentBox } from 'src/components/ContentBox'
-import { Box } from 'src/pages/dashboard/styles'
+import { Box, SectionBox } from 'src/pages/dashboard/styles'
 import { ContentHeader } from 'src/components/ContentHeader'
 import { useCompanyStore } from 'src/store/company'
 import { SkeletonLoader } from 'src/components/Skeleton/styles'
+import { ContentSection } from 'src/components/ContentSection'
 
 interface Props {}
 
@@ -52,7 +53,22 @@ export const Dashboard: React.FC<Props> = () => {
       <Header isLoading={isLoading} companies={companies} />
       <ContentBox>
         {!!isLoading && <SkeletonLoader color="blue900" />}
-        <ContentHeader />
+        {!isLoading && (
+          <>
+            <ContentHeader />
+            <SectionBox>
+              <ContentSection>
+                {/*  */}
+                Hello
+              </ContentSection>
+
+              <ContentSection title="MOTOR RT COAL AF01">
+                {/*  */}
+                Hello
+              </ContentSection>
+            </SectionBox>
+          </>
+        )}
       </ContentBox>
     </Box>
   )
