@@ -12,10 +12,7 @@ export interface Asset {
   parentId: string | null
   sensorId: string
   status: AssetStatus
+  sensorType: AssetSensorType | null
   gatewayId: string
   locationId: string | null
-}
-
-export interface AssetComponent extends Asset {
-  sensorType: AssetSensorType
 }
