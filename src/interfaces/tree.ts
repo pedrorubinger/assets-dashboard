@@ -6,5 +6,6 @@ export type TreeNodeType = 'asset' | 'component' | 'location'
 export interface TreeNode extends Partial<CompanyLocation>, Partial<Asset> {
   id: string
   name: string
+  type: TreeNodeType
   children?: TreeNode[]
 }
