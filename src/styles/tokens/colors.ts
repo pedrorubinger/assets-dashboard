@@ -14,4 +14,6 @@ export const Colors = {
   gray600: '#77818C',
   gray850: '#17192D',
   gray950: '#24292F',
+
+  arsenic: '#363C44',
 }
