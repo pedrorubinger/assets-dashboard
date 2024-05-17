@@ -1,3 +1,5 @@
+import { useCompanyStore } from 'src/store/company'
+import { buildTree } from 'src/utils/helpers/tree'
 import { Header } from 'src/components/Header'
 import { ContentBox } from 'src/components/ContentBox'
 import { SkeletonLoader } from 'src/components/Skeleton/styles'
@@ -6,15 +8,17 @@ import { useFetchAssetTreeData } from 'src/pages/dashboard/hooks/useFetchAssetTr
 import { Box, SectionBox } from 'src/pages/dashboard/styles'
 import { DashboardContentHeader } from 'src/pages/dashboard/components/ContentHeader'
 import { AssetTree } from 'src/pages/dashboard/components/AssetTree'
-import { useCompanyStore } from 'src/store/company'
+import { useMemo } from 'react'
 
 interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
   const { company } = useCompanyStore()
-  const { isLoading } = useFetchAssetTreeData({
+  const { isLoading, data } = useFetchAssetTreeData({
     companyId: company?.id,
   })
+
+  const tree = useMemo(() => buildTree(data), [data])
 
   return (
     <Box>
@@ -25,7 +29,7 @@ export const Dashboard: React.FC<Props> = () => {
           <>
             <DashboardContentHeader />
             <SectionBox>
-              <AssetTree />
+              <AssetTree tree={tree} />
 
               <ContentSection title="MOTOR RT COAL AF01">
                 <span></span>
