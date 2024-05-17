@@ -1,17 +1,17 @@
 import { useState } from 'react'
 
-import ChevronRight from 'src/assets/right-chevron-icon.svg'
-import ChevronDown from 'src/assets/down-chevron-icon.svg'
 import { ContentSection } from 'src/components/ContentSection'
 import { TreeNode } from 'src/interfaces/tree'
 import {
-  ChevronIcon,
   ItemLine,
   List,
   ListItem,
   ListText,
 } from 'src/pages/dashboard/components/AssetTree/styles'
 import { AssetTreeIconMap } from 'src/pages/dashboard/utils/constants/assetTree'
+import { ChevronDownSVG } from 'src/components/Icons/ChevronDownSVG'
+import { ChevronRightSVG } from 'src/components/Icons/ChevronRightSVG'
+import { Colors } from 'src/styles/tokens/colors'
 
 interface Props {
   tree: TreeNode[]
@@ -32,6 +32,13 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
     const hasChildren = !!node.children?.length
     const isNodeOpen = isOpen.includes(node.id)
     const isSelected = selected === node.id
+    const chevronIconColor: undefined | keyof typeof Colors = isSelected
+      ? 'white'
+      : undefined
+    const nodeIconColor: undefined | keyof typeof Colors = isSelected
+      ? 'white'
+      : undefined
+    const IconComponent = AssetTreeIconMap[node.type]
 
     return (
       <ListItem key={node.id} $isRoot={isRoot}>
@@ -39,10 +46,14 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
           onClick={() => onToggleStatus(node.id)}
           $isSelected={isSelected}
         >
-          {!!hasChildren && (
-            <ChevronIcon src={isNodeOpen ? ChevronDown : ChevronRight} />
-          )}
-          <img src={AssetTreeIconMap[node.type]} />
+          {!!hasChildren &&
+            (isNodeOpen ? (
+              <ChevronDownSVG color={chevronIconColor} />
+            ) : (
+              <ChevronRightSVG color={chevronIconColor} />
+            ))}
+
+          <IconComponent color={nodeIconColor} />
           <ListText $isSelected={isSelected}>{node.name}</ListText>
         </ItemLine>
 

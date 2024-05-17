@@ -29,6 +29,7 @@ export const ItemLine = styled.div<ItemLineProps>`
   align-items: center;
 
   padding: ${Sizes.xsm}px;
+  padding-left: ${Sizes.sm1}px;
 
   cursor: pointer;
 
@@ -45,11 +46,4 @@ export const ListText = styled.span<ListTextProps>`
   font-weight: 400;
   text-align: left;
   color: ${({ $isSelected }) => ($isSelected ? Colors.white : Colors.gray850)};
-`
-
-export const ChevronIcon = styled.img`
-  margin-left: ${Sizes.xsm}px;
-
-  width: ${Sizes.sm1}px;
-  height: ${Sizes.sm1}px;
 `
