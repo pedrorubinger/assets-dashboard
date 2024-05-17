@@ -1,3 +1,4 @@
+import { Colors } from 'src/styles/tokens/colors'
 import { Sizes } from 'src/styles/tokens/sizes'
 import styled from 'styled-components'
 
@@ -20,4 +21,11 @@ export const SectionBox = styled.div`
     align-items: stretch;
     gap: 0;
   }
+`
+
+export const HeaderTitle = styled.span`
+  font-size: ${Sizes.md1}px;
+  font-weight: 600;
+
+  color: ${Colors.gray950};
 `

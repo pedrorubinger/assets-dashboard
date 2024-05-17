@@ -19,19 +19,12 @@ export const Box = styled.div<Props>`
   width: ${({ width = 'auto' }) => width};
 `
 
-export const TitleBox = styled.div`
-  padding: ${Sizes.sm2}px ${Sizes.md}px;
+export const HeaderBox = styled.div`
+  padding: ${Sizes.sm2}px ${Sizes.sm2}px;
   border-bottom: 1px solid ${Colors.gray150};
 `
 
 export const ContentBox = styled.div`
   width: 100%;
   padding: ${Sizes.md}px;
-`
-
-export const Title = styled.span`
-  font-size: ${Sizes.md1}px;
-  font-weight: 600;
-
-  color: ${Colors.gray950};
 `

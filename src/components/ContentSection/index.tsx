@@ -1,29 +1,24 @@
 import {
   Box,
   ContentBox,
-  Title,
-  TitleBox,
+  HeaderBox,
 } from 'src/components/ContentSection/styles'
 
 interface Props extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   children: React.ReactNode
-  title?: string
+  header?: React.ReactNode
   width?: string
 }
 
 export const ContentSection: React.FC<Props> = ({
   children,
-  title,
+  header,
   width,
   ...rest
 }) => {
   return (
     <Box width={width} {...rest}>
-      {!!title && (
-        <TitleBox>
-          <Title>{title}</Title>
-        </TitleBox>
-      )}
+      {!!header && <HeaderBox>{header}</HeaderBox>}
       <ContentBox>{children}</ContentBox>
     </Box>
   )

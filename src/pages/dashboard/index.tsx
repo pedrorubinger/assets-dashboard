@@ -5,7 +5,7 @@ import { ContentBox } from 'src/components/ContentBox'
 import { SkeletonLoader } from 'src/components/Skeleton/styles'
 import { ContentSection } from 'src/components/ContentSection'
 import { useFetchAssetTreeData } from 'src/pages/dashboard/hooks/useFetchAssetTreeData'
-import { Box, SectionBox } from 'src/pages/dashboard/styles'
+import { Box, HeaderTitle, SectionBox } from 'src/pages/dashboard/styles'
 import { DashboardContentHeader } from 'src/pages/dashboard/components/ContentHeader'
 import { AssetTree } from 'src/pages/dashboard/components/AssetTree'
 import { useMemo } from 'react'
@@ -31,7 +31,9 @@ export const Dashboard: React.FC<Props> = () => {
             <SectionBox>
               <AssetTree tree={tree} />
 
-              <ContentSection title="MOTOR RT COAL AF01">
+              <ContentSection
+                header={<HeaderTitle>MOTOR RT COAL AF01</HeaderTitle>}
+              >
                 <span></span>
               </ContentSection>
             </SectionBox>
