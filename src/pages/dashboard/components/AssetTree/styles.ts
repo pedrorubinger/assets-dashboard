@@ -29,7 +29,6 @@ export const ItemLine = styled.div<ItemLineProps>`
   align-items: center;
 
   padding: ${Sizes.xsm}px;
-  padding-left: ${Sizes.sm1}px;
 
   cursor: pointer;
 
