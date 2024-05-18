@@ -15,8 +15,8 @@ export const Box = styled.div`
 `
 
 interface ButtonProps {
-  size: ButtonSize
-  variant: ButtonVariant
+  $size: ButtonSize
+  $variant: ButtonVariant
 }
 
 const getBackgroundColor = (theme: Theme, variant: ButtonVariant) => {
@@ -50,31 +50,31 @@ const getBackgroundColorHover = (theme: Theme, variant: ButtonVariant) => {
 }
 
 export const StyledButton = styled.button<ButtonProps>`
-  font-size: ${({ size = 'sm' }) => ButtonSizes[size].fontSize}px;
+  font-size: ${({ $size }) => ButtonSizes[$size].fontSize}px;
 
   display: flex;
   align-items: center;
 
-  padding: ${({ size = 'sm' }) =>
-    `${ButtonSizes[size].paddingVertical}px ${ButtonSizes[size].paddingHorizontal}px`};
+  padding: ${({ $size }) =>
+    `${ButtonSizes[$size].paddingVertical}px ${ButtonSizes[$size].paddingHorizontal}px`};
 
   border: none;
   border-style: solid;
-  border-color: ${({ theme, variant }) => getBorderColor(theme, variant)};
-  border-radius: ${({ size = 'sm' }) => ButtonSizes[size].borderRadius}px;
-  border-width: ${({ variant }) => getBorderWidth(variant)};
+  border-color: ${({ theme, $variant }) => getBorderColor(theme, $variant)};
+  border-radius: ${({ $size }) => ButtonSizes[$size].borderRadius}px;
+  border-width: ${({ $variant }) => getBorderWidth($variant)};
 
-  color: ${({ theme, variant }) => getColor(theme, variant)};
-  background-color: ${({ theme, variant }) =>
-    getBackgroundColor(theme, variant)};
+  color: ${({ theme, $variant }) => getColor(theme, $variant)};
+  background-color: ${({ theme, $variant }) =>
+    getBackgroundColor(theme, $variant)};
 
   transition: 0.6s;
 
   &:hover {
     cursor: pointer;
 
-    background-color: ${({ theme, variant }) =>
-      getBackgroundColorHover(theme, variant)};
+    background-color: ${({ theme, $variant }) =>
+      getBackgroundColorHover(theme, $variant)};
   }
 `
 

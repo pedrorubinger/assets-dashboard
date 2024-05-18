@@ -20,7 +20,7 @@ export const Button: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <StyledButton variant={variant} size={size} {...rest}>
+    <StyledButton $variant={variant} $size={size} {...rest}>
       {!!iconSrc && <IconImg src={iconSrc} />}
       {children}
     </StyledButton>
