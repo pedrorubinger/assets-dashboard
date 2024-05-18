@@ -4,7 +4,6 @@ import { Sizes } from 'src/styles/tokens/sizes'
 import { Colors } from 'src/styles/tokens/colors'
 
 export const List = styled.ul`
-  padding: 0;
   margin: 0;
 `
 

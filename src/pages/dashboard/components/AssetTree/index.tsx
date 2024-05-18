@@ -95,7 +95,11 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
 
   return (
     <ContentSection
-      style={{ overflow: 'hidden' }}
+      style={{
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        maxHeight: 600,
+      }}
       headerStyle={{ padding: 0 }}
       contentStyle={{ paddingLeft: Sizes.sm1 }}
       header={
@@ -109,7 +113,7 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
         </HeaderBox>
       }
     >
-      <List>
+      <List style={{ overflowX: 'auto' }}>
         {tree.map((node) => {
           return renderNode(node, true)
         })}
