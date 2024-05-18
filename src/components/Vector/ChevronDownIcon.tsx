@@ -3,7 +3,7 @@ import { Colors } from 'src/styles/tokens/colors'
 
 interface Props extends SVGIconProps {}
 
-export const ChevronRightSVG: React.FC<Props> = ({ color = Colors.black }) => {
+export const ChevronDownIcon: React.FC<Props> = ({ color = Colors.black }) => {
   return (
     <svg
       fill={color}
@@ -12,9 +12,9 @@ export const ChevronRightSVG: React.FC<Props> = ({ color = Colors.black }) => {
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 404.258 404.258"
+      viewBox="0 0 407.437 407.437"
     >
-      <polygon points="138.331,0 114.331,18 252.427,202.129 114.331,386.258 138.331,404.258 289.927,202.129 " />
+      <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 " />
     </svg>
   )
 }

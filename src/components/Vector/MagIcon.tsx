@@ -3,7 +3,7 @@ import { Colors } from 'src/styles/tokens/colors'
 
 interface Props extends SVGIconProps {}
 
-export const MagSVG: React.FC<Props> = ({ color = Colors.arsenic }) => {
+export const MagIcon: React.FC<Props> = ({ color = Colors.arsenic }) => {
   return (
     <svg
       width="14"

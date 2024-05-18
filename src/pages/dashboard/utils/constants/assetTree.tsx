@@ -1,13 +1,13 @@
-import { ComponentSVG } from 'src/components/Icons/ComponentSVG'
-import { CubeSVG } from 'src/components/Icons/CubeSVG'
-import { LocationSVG } from 'src/components/Icons/LocationSVG'
+import { ComponentIcon } from 'src/components/Vector/ComponentIcon'
+import { CubeIcon } from 'src/components/Vector/CubeIcon'
+import { LocationIcon } from 'src/components/Vector/LocationIcon'
 import { SVGIconProps } from 'src/interfaces/icon'
 import { TreeNodeType } from 'src/interfaces/tree'
 
 export const AssetTreeIconMap: {
   [key in TreeNodeType]: React.FC<SVGIconProps>
 } = {
-  asset: CubeSVG,
-  component: ComponentSVG,
-  location: LocationSVG,
+  asset: CubeIcon,
+  component: ComponentIcon,
+  location: LocationIcon,
 }

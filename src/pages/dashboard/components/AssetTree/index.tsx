@@ -10,11 +10,11 @@ import {
   ListText,
 } from 'src/pages/dashboard/components/AssetTree/styles'
 import { AssetTreeIconMap } from 'src/pages/dashboard/utils/constants/assetTree'
-import { ChevronDownSVG } from 'src/components/Icons/ChevronDownSVG'
-import { ChevronRightSVG } from 'src/components/Icons/ChevronRightSVG'
+import { ChevronDownIcon } from 'src/components/Vector/ChevronDownIcon'
+import { ChevronRightIcon } from 'src/components/Vector/ChevronRightIcon'
 import { Colors } from 'src/styles/tokens/colors'
 import { Input } from 'src/components/Input'
-import { MagSVG } from 'src/components/Icons/MagSVG'
+import { MagIcon } from 'src/components/Vector/MagIcon'
 import { Sizes } from 'src/styles/tokens/sizes'
 
 interface Props {
@@ -55,9 +55,9 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
       : undefined
     const IconComponent = AssetTreeIconMap[node.type]
     const Chevron = isNodeOpen ? (
-      <ChevronDownSVG color={chevronIconColor} />
+      <ChevronDownIcon color={chevronIconColor} />
     ) : (
-      <ChevronRightSVG color={chevronIconColor} />
+      <ChevronRightIcon color={chevronIconColor} />
     )
 
     if (search && !node.name.toLowerCase().includes(search.toLowerCase())) {
@@ -108,7 +108,7 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
             name="filter"
             placeholder="Buscar Ativo ou Local"
             onChange={onFilter}
-            icon={<MagSVG />}
+            icon={<MagIcon />}
           />
         </HeaderBox>
       }

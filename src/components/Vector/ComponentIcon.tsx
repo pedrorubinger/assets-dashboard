@@ -3,7 +3,7 @@ import { Colors } from 'src/styles/tokens/colors'
 
 interface Props extends SVGIconProps {}
 
-export const ComponentSVG: React.FC<Props> = ({ color = Colors.blue500 }) => {
+export const ComponentIcon: React.FC<Props> = ({ color = Colors.blue500 }) => {
   return (
     <svg
       width="22"
