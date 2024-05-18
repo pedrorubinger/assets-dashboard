@@ -7,13 +7,13 @@ import { ContentSection } from 'src/components/ContentSection'
 export const Box = styled(ContentSection).attrs(() => ({
   headerStyle: { padding: 0 },
   contentStyle: {
-    overflow: 'auto',
+    overflowY: 'auto',
+    overflowX: 'hidden',
     boxSizing: 'border-box',
     paddingLeft: Sizes.sm1,
   },
 }))`
   max-height: 550px;
-  overflow: auto;
 `
 
 export const List = styled.ul`
