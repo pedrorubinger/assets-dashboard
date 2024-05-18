@@ -9,6 +9,7 @@ import { Box, HeaderTitle, SectionBox } from 'src/pages/dashboard/styles'
 import { DashboardContentHeader } from 'src/pages/dashboard/components/ContentHeader'
 import { AssetTree } from 'src/pages/dashboard/components/AssetTree'
 import { useMemo } from 'react'
+import { EmptyState } from 'src/components/EmptyState'
 
 interface Props {}
 
@@ -18,7 +19,7 @@ export const Dashboard: React.FC<Props> = () => {
     companyId: company?.id,
   })
 
-  const tree = useMemo(() => buildTree(data), [data])
+  const base = useMemo(() => buildTree(data), [data])
 
   return (
     <Box>
@@ -29,12 +30,12 @@ export const Dashboard: React.FC<Props> = () => {
           <>
             <DashboardContentHeader />
             <SectionBox>
-              <AssetTree tree={tree} />
+              <AssetTree base={base} />
 
               <ContentSection
                 header={<HeaderTitle>MOTOR RT COAL AF01</HeaderTitle>}
               >
-                <span></span>
+                <EmptyState />
               </ContentSection>
             </SectionBox>
           </>

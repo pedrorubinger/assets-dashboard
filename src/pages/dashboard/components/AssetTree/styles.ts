@@ -49,3 +49,17 @@ export const ListText = styled.span<ListTextProps>`
 export const HeaderBox = styled.div`
   overflow: hidden;
 `
+
+export const NoItemsMessage = styled.span`
+  margin-top: ${Sizes.sm}px;
+  margin-right: ${Sizes.xlg}px;
+
+  font-size: ${Sizes.sm3}px;
+  font-weight: 300;
+
+  color: ${Colors.gray500};
+`
+
+export const Strong = styled.strong`
+  font-weight: 500;
+`

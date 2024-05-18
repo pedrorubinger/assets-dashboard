@@ -8,6 +8,8 @@ import {
   List,
   ListItem,
   ListText,
+  NoItemsMessage,
+  Strong,
 } from 'src/pages/dashboard/components/AssetTree/styles'
 import { AssetTreeIconMap } from 'src/pages/dashboard/utils/constants/assetTree'
 import { ChevronDownIcon } from 'src/components/Vector/ChevronDownIcon'
@@ -16,15 +18,18 @@ import { Colors } from 'src/styles/tokens/colors'
 import { Input } from 'src/components/Input'
 import { MagIcon } from 'src/components/Vector/MagIcon'
 import { Sizes } from 'src/styles/tokens/sizes'
+import { processTreeSearch } from 'src/utils/helpers/tree'
 
 interface Props {
-  tree: TreeNode[]
+  base: TreeNode[]
 }
 
-export const AssetTree: React.FC<Props> = ({ tree }) => {
+export const AssetTree: React.FC<Props> = ({ base }) => {
   const [expanded, setExpanded] = useState<string[]>([])
   const [selected, setSelected] = useState<string | undefined>()
   const [search, setSearch] = useState<string | undefined>()
+
+  const tree = processTreeSearch({ tree: base, search })
 
   const searchTimeout = useRef<number | null>(null)
 
@@ -33,7 +38,7 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
 
     searchTimeout.current = setTimeout(() => {
       setSearch(value)
-    }, 1500)
+    }, 500)
   }
 
   const onToggleStatus = (id: string) => {
@@ -60,10 +65,6 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
       <ChevronRightIcon color={chevronIconColor} />
     )
 
-    if (search && !node.name.toLowerCase().includes(search.toLowerCase())) {
-      return null
-    }
-
     return (
       <ListItem key={node.id} $isRoot={isRoot}>
         <ItemLine
@@ -87,6 +88,24 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
     )
   }
 
+  const renderEmptyMessage = () => {
+    if (search) {
+      return (
+        <NoItemsMessage>
+          Nenhum ativo ou localização encontrados para sua busca por&nbsp;
+          <Strong>{search}</Strong>.
+          {/* For future implementations, add a 'clear search' button. */}
+        </NoItemsMessage>
+      )
+    }
+
+    return (
+      <NoItemsMessage>
+        Não há ativos ou localizações a serem exibidas neste momento.
+      </NoItemsMessage>
+    )
+  }
+
   useEffect(() => {
     return () => {
       if (searchTimeout.current) clearTimeout(searchTimeout.current)
@@ -95,13 +114,13 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
 
   return (
     <ContentSection
-      style={{
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        maxHeight: 600,
-      }}
+      style={{ maxHeight: 550, overflow: 'auto' }}
       headerStyle={{ padding: 0 }}
-      contentStyle={{ paddingLeft: Sizes.sm1 }}
+      contentStyle={{
+        overflow: 'auto',
+        boxSizing: 'border-box',
+        paddingLeft: Sizes.sm1,
+      }}
       header={
         <HeaderBox>
           <Input
@@ -113,6 +132,8 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
         </HeaderBox>
       }
     >
+      {!tree.length && renderEmptyMessage()}
+
       <List style={{ overflowX: 'auto' }}>
         {tree.map((node) => {
           return renderNode(node, true)
