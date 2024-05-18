@@ -28,7 +28,7 @@ export const ItemLine = styled.div<ItemLineProps>`
   gap: ${Sizes.sm}px;
   align-items: center;
 
-  padding: ${Sizes.xsm}px;
+  padding: ${Sizes.xsm}px ${Sizes.sm}px;
 
   cursor: pointer;
 
