@@ -23,7 +23,7 @@ const getOrigin = (node: CompanyLocation | Asset): string | null => {
 }
 
 /**
- * Identifies if the item is an asset or a component
+ * Identifies if the item is an asset or a component.
  * @param {Asset} asset asset item
  * @returns the node type
  */
@@ -74,4 +74,70 @@ export const buildTree = ({
   })
 
   return tree
+}
+
+/**
+ * Flattens the asset tree array items into a flat array.
+ *
+ * @param {TreeNode[]} tree - The array of nested items to flatten.
+ * @returns {TreeNode[]} A flat array of all items.
+ */
+export const flattenTreeNodeChildren = (tree: TreeNode[]): TreeNode[] => {
+  const result: TreeNode[] = []
+
+  const recurse = (items: TreeNode[]) => {
+    for (const item of items) {
+      result.push(item)
+
+      if (item.children && item.children.length > 0) {
+        recurse(item.children)
+      }
+    }
+  }
+
+  recurse(tree)
+
+  return result
+}
+
+interface ProcessTreeSearchParams {
+  /** The array of items to filter. */
+  tree: TreeNode[]
+  /** The searched name */
+  search?: string
+}
+
+/**
+ * Filters tree nodes by name, keeping the children of any included parent node.
+ *
+ * @param {ProcessTreeSearchParams} params - The parameters for the function.
+ * @returns {TreeNode[]} The filtered tree.
+ */
+export const processTreeSearch = ({
+  tree = [],
+  search,
+}: ProcessTreeSearchParams): TreeNode[] => {
+  if (!search) return tree
+
+  const filter = (items: TreeNode[]): TreeNode[] => {
+    return items.reduce((acc: TreeNode[], item: TreeNode) => {
+      const formattedSearch = search.toLowerCase()
+      const formattedName = item.name.toLowerCase()
+      const searchMatchesNode = formattedName.includes(formattedSearch)
+
+      if (searchMatchesNode) {
+        acc.push(item)
+      } else if (item.children) {
+        const filteredChildren = filter(item.children)
+
+        if (filteredChildren.length > 0) {
+          acc.push(...filteredChildren)
+        }
+      }
+
+      return acc
+    }, [])
+  }
+
+  return filter(tree)
 }
