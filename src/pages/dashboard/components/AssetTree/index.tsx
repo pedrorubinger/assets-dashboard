@@ -14,6 +14,7 @@ import { ChevronDownSVG } from 'src/components/Icons/ChevronDownSVG'
 import { ChevronRightSVG } from 'src/components/Icons/ChevronRightSVG'
 import { Colors } from 'src/styles/tokens/colors'
 import { Input } from 'src/components/Input'
+import { MagSVG } from 'src/components/Icons/MagSVG'
 
 interface Props {
   tree: TreeNode[]
@@ -76,7 +77,7 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
       headerStyle={{ padding: 0 }}
       header={
         <HeaderBox>
-          <Input placeholder="Buscar Ativo ou Local" />
+          <Input placeholder="Buscar Ativo ou Local" icon={<MagSVG />} />
         </HeaderBox>
       }
     >
