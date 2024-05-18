@@ -15,11 +15,14 @@ interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
   const { company } = useCompanyStore()
-  const { isLoading, data } = useFetchAssetTreeData({
+  const { isFetching, data } = useFetchAssetTreeData({
     companyId: company?.id,
   })
 
   const base = useMemo(() => buildTree(data), [data])
+
+  const isBuildingTree = !!data && !base.length
+  const isLoading = isFetching || isBuildingTree
 
   return (
     <Box>
