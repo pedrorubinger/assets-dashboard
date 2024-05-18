@@ -16,4 +16,5 @@ export const Colors = {
   gray950: '#24292F',
 
   arsenic: '#363C44',
+  lavenderGray: '#C1C9D2',
 }
