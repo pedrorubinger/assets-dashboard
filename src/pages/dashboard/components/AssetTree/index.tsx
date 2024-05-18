@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { ContentSection } from 'src/components/ContentSection'
 import { TreeNode } from 'src/interfaces/tree'
 import {
+  Box,
   HeaderBox,
   ItemLine,
   List,
@@ -17,7 +17,6 @@ import { ChevronRightIcon } from 'src/components/Vector/ChevronRightIcon'
 import { Colors } from 'src/styles/tokens/colors'
 import { Input } from 'src/components/Input'
 import { MagIcon } from 'src/components/Vector/MagIcon'
-import { Sizes } from 'src/styles/tokens/sizes'
 import { processTreeSearch } from 'src/utils/helpers/tree'
 
 interface Props {
@@ -113,14 +112,7 @@ export const AssetTree: React.FC<Props> = ({ base }) => {
   }, [])
 
   return (
-    <ContentSection
-      style={{ maxHeight: 550, overflow: 'auto' }}
-      headerStyle={{ padding: 0 }}
-      contentStyle={{
-        overflow: 'auto',
-        boxSizing: 'border-box',
-        paddingLeft: Sizes.sm1,
-      }}
+    <Box
       header={
         <HeaderBox>
           <Input
@@ -134,11 +126,11 @@ export const AssetTree: React.FC<Props> = ({ base }) => {
     >
       {!tree.length && renderEmptyMessage()}
 
-      <List style={{ overflowX: 'auto' }}>
+      <List>
         {tree.map((node) => {
           return renderNode(node, true)
         })}
       </List>
-    </ContentSection>
+    </Box>
   )
 }

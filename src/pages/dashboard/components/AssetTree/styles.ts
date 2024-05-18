@@ -2,9 +2,23 @@ import styled from 'styled-components'
 
 import { Sizes } from 'src/styles/tokens/sizes'
 import { Colors } from 'src/styles/tokens/colors'
+import { ContentSection } from 'src/components/ContentSection'
+
+export const Box = styled(ContentSection).attrs(() => ({
+  headerStyle: { padding: 0 },
+  contentStyle: {
+    overflow: 'auto',
+    boxSizing: 'border-box',
+    paddingLeft: Sizes.sm1,
+  },
+}))`
+  max-height: 550px;
+  overflow: auto;
+`
 
 export const List = styled.ul`
   margin: 0;
+  overflow-x: auto;
 `
 
 interface ListItemProps {
