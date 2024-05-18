@@ -93,7 +93,7 @@ export const AssetTree: React.FC<Props> = ({ base }) => {
         <NoItemsMessage>
           Nenhum ativo ou localização encontrados para sua busca por&nbsp;
           <Strong>{search}</Strong>.
-          {/* For future implementations, add a 'clear search' button. */}
+          {/* For future implementations, a 'clear search' button may be added. */}
         </NoItemsMessage>
       )
     }
