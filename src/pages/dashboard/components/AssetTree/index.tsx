@@ -21,19 +21,19 @@ interface Props {
 }
 
 export const AssetTree: React.FC<Props> = ({ tree }) => {
-  const [isOpen, setIsOpen] = useState<string[]>([])
+  const [expanded, setExpanded] = useState<string[]>([])
   const [selected, setSelected] = useState<string | undefined>()
 
   const onToggleStatus = (id: string) => {
     setSelected(id)
-    setIsOpen((prev) =>
+    setExpanded((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     )
   }
 
   const renderNode = (node: TreeNode, isRoot = false) => {
     const hasChildren = !!node.children?.length
-    const isNodeOpen = isOpen.includes(node.id)
+    const isNodeOpen = expanded.includes(node.id)
     const isSelected = selected === node.id
     const chevronIconColor: undefined | keyof typeof Colors = isSelected
       ? 'white'
