@@ -46,3 +46,7 @@ export const ListText = styled.span<ListTextProps>`
   text-align: left;
   color: ${({ $isSelected }) => ($isSelected ? Colors.white : Colors.gray850)};
 `
+
+export const HeaderBox = styled.div`
+  overflow: hidden;
+`

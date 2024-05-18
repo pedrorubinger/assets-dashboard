@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ContentSection } from 'src/components/ContentSection'
 import { TreeNode } from 'src/interfaces/tree'
 import {
+  HeaderBox,
   ItemLine,
   List,
   ListItem,
@@ -12,6 +13,7 @@ import { AssetTreeIconMap } from 'src/pages/dashboard/utils/constants/assetTree'
 import { ChevronDownSVG } from 'src/components/Icons/ChevronDownSVG'
 import { ChevronRightSVG } from 'src/components/Icons/ChevronRightSVG'
 import { Colors } from 'src/styles/tokens/colors'
+import { Input } from 'src/components/Input'
 
 interface Props {
   tree: TreeNode[]
@@ -69,7 +71,15 @@ export const AssetTree: React.FC<Props> = ({ tree }) => {
   }
 
   return (
-    <ContentSection style={{ overflow: 'hidden' }}>
+    <ContentSection
+      style={{ overflow: 'hidden' }}
+      headerStyle={{ padding: 0 }}
+      header={
+        <HeaderBox>
+          <Input placeholder="Buscar Ativo ou Local" />
+        </HeaderBox>
+      }
+    >
       <List>
         {tree.map((node) => {
           return renderNode(node, true)
