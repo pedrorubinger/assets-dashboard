@@ -14,6 +14,7 @@ export const Box = styled(ContentSection).attrs(() => ({
   },
 }))`
   max-height: 550px;
+  overflow: auto;
 `
 
 export const List = styled.ul`
