@@ -1,9 +1,11 @@
 export enum AssetStatus {
   OPERATING = 'operating',
+  ALERT = 'alert',
 }
 
 export enum AssetSensorType {
   ENERGY = 'energy',
+  VIBRATION = 'vibration',
 }
 
 export interface Asset {
