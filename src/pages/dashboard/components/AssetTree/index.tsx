@@ -42,7 +42,7 @@ export const AssetTree: React.FC<Props> = () => {
   const renderNode = (node: TreeNode, isRoot = false) => {
     const hasChildren = !!node.children?.length
     const isNodeOpen = expanded.includes(node.id)
-    const isSelected = selected === node.id
+    const isSelected = selected?.id === node.id
     const chevronIconColor: undefined | keyof typeof Colors = isSelected
       ? 'white'
       : undefined
@@ -59,7 +59,7 @@ export const AssetTree: React.FC<Props> = () => {
     return (
       <ListItem key={node.id} $isRoot={isRoot}>
         <ItemLine
-          onClick={() => onToggleNodeState(node.id)}
+          onClick={() => onToggleNodeState({ id: node.id, name: node.name })}
           $isSelected={isSelected}
         >
           {!!hasChildren && Chevron}

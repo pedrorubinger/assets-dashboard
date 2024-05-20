@@ -9,12 +9,17 @@ interface AssetTreeContextProviderProps {
   children: React.ReactNode
 }
 
+interface SelectedTreeNode {
+  id: string
+  name: string
+}
+
 interface AssetTreeContextType {
   base: TreeNode[]
   expanded: string[]
   isLoading: boolean
-  selected?: string
-  onToggleNodeState: (id: string) => void
+  selected?: SelectedTreeNode
+  onToggleNodeState: (params: SelectedTreeNode) => void
 }
 
 export const AssetTreeContext = createContext({} as AssetTreeContextType)
@@ -23,7 +28,7 @@ export const AssetTreeProvider = ({
   children,
 }: AssetTreeContextProviderProps) => {
   const [expanded, setExpanded] = useState<string[]>([])
-  const [selected, setSelected] = useState<string | undefined>()
+  const [selected, setSelected] = useState<SelectedTreeNode | undefined>()
 
   const { company } = useCompanyStore()
   const { isFetching, data } = useFetchAssetTreeData({
@@ -35,8 +40,8 @@ export const AssetTreeProvider = ({
   const isBuildingTree = !!data && !base.length
   const isLoading = isFetching || isBuildingTree
 
-  const onToggleNodeState = (id: string) => {
-    setSelected(id)
+  const onToggleNodeState = ({ id, name }: SelectedTreeNode) => {
+    setSelected({ id, name })
     setExpanded((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     )

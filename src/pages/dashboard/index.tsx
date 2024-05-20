@@ -13,7 +13,7 @@ import { AssetTreeContext } from 'src/context/AssetTreeContext'
 interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
-  const { isLoading } = useContext(AssetTreeContext)
+  const { isLoading, selected } = useContext(AssetTreeContext)
 
   return (
     <Box>
@@ -27,7 +27,11 @@ export const Dashboard: React.FC<Props> = () => {
               <AssetTree />
 
               <ContentSection
-                header={<HeaderTitle>MOTOR RT COAL AF01</HeaderTitle>}
+                header={
+                  selected?.name ? (
+                    <HeaderTitle>{selected.name}</HeaderTitle>
+                  ) : null
+                }
               >
                 <EmptyState />
               </ContentSection>
