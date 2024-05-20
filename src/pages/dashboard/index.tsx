@@ -19,6 +19,8 @@ interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
   const { isLoading, selected } = useContext(AssetTreeContext)
+  const hasDetails =
+    !!selected && ['asset', 'component'].includes(selected.type)
 
   return (
     <Box>
@@ -38,8 +40,7 @@ export const Dashboard: React.FC<Props> = () => {
                   ) : null
                 }
               >
-                {!selected && <EmptyState />}
-                {!!selected && <AssetDetails />}
+                {hasDetails ? <AssetDetails /> : <EmptyState />}
               </Content>
             </SectionBox>
           </>
