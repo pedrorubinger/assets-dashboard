@@ -37,3 +37,7 @@ export const HeaderTitle = styled.span`
 
   color: ${Colors.gray950};
 `
+
+export const IconBox = styled.span`
+  margin-left: ${Sizes.sm}px;
+`
