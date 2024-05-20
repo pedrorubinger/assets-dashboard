@@ -19,8 +19,7 @@ interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
   const { isLoading, selected } = useContext(AssetTreeContext)
-  const hasDetails =
-    !!selected && ['asset', 'component'].includes(selected.type)
+  const hasDetails = !!selected && ['component'].includes(selected.type)
 
   return (
     <Box>

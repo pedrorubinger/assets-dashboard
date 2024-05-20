@@ -54,10 +54,35 @@ export const InfoBoxTitle = styled.span`
   color: ${Colors.gray950};
 `
 
-export const InfoBoxText = styled.span`
+interface InfoBoxTextProps {
+  $alignment?: 'baseline' | 'center'
+}
+
+export const InfoBoxText = styled.span<InfoBoxTextProps>`
   font-size: ${Sizes.md}px;
   font-weight: 300;
   text-align: left;
 
+  display: flex;
+  align-items: ${({ $alignment = 'center' }) => $alignment};
+  gap: ${Sizes.sm}px;
+
   color: ${Colors.gray500};
+`
+
+export const AccountableInfoBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+`
+
+export const AccountableInfoBadge = styled.span`
+  border-radius: 50%;
+
+  padding: ${Sizes.xsm}px ${Sizes.xsm2}px;
+
+  background-color: ${Colors.blue500};
+
+  color: ${Colors.white};
+  font-size: ${Sizes.sm3}px;
 `

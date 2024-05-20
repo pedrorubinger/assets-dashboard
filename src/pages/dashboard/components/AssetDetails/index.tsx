@@ -1,6 +1,12 @@
-import MotorImg from 'src/assets/motor-image.png'
+import { useContext } from 'react'
 
+import MotorImg from 'src/assets/motor-image.png'
+import { ReceiverIcon } from 'src/components/Vector/ReceiverIcon'
+import { SensorIcon } from 'src/components/Vector/SensorIcon'
+import { AssetTreeContext } from 'src/context/AssetTreeContext'
 import {
+  AccountableInfoBadge,
+  AccountableInfoBox,
   Box,
   InfoBox,
   InfoBoxText,
@@ -13,20 +19,31 @@ import {
 interface Props {}
 
 export const AssetDetails: React.FC<Props> = () => {
+  const { selected } = useContext(AssetTreeContext)
+
   return (
     <Box>
       <PrimaryInfoBox>
+        {/* Mocked image */}
         <img src={MotorImg} />
 
         <PrimaryInfoDetailsBox>
           <InfoBox $useBorder>
-            <InfoBoxTitle>Nome</InfoBoxTitle>
-            <InfoBoxText>Motor elétrico</InfoBoxText>
+            <InfoBoxTitle>Tipo de equipamento</InfoBoxTitle>
+            {/* Mocked information */}
+            <InfoBoxText>Motor Elétrico (Trifásico)</InfoBoxText>
           </InfoBox>
 
           <InfoBox>
             <InfoBoxTitle>Responsáveis</InfoBoxTitle>
-            <InfoBoxText>Elétrica</InfoBoxText>
+            {/* Mocked information */}
+            <InfoBoxText>
+              <AccountableInfoBox>
+                <AccountableInfoBadge>E</AccountableInfoBadge>
+                &nbsp;
+                <span>Elétrica</span>
+              </AccountableInfoBox>
+            </InfoBoxText>
           </InfoBox>
         </PrimaryInfoDetailsBox>
       </PrimaryInfoBox>
@@ -34,12 +51,18 @@ export const AssetDetails: React.FC<Props> = () => {
       <SecondaryInfoDetailsBox>
         <InfoBox>
           <InfoBoxTitle>Sensor</InfoBoxTitle>
-          <InfoBoxText>HIO4510</InfoBoxText>
+          <InfoBoxText>
+            <SensorIcon />
+            <span>{selected?.sensorId ?? '-'}</span>
+          </InfoBoxText>
         </InfoBox>
 
         <InfoBox>
           <InfoBoxTitle>Receptor</InfoBoxTitle>
-          <InfoBoxText>EUH4R27</InfoBoxText>
+          <InfoBoxText $alignment="baseline">
+            <ReceiverIcon />
+            <span>{selected?.gatewayId ?? '-'}</span>
+          </InfoBoxText>
         </InfoBox>
       </SecondaryInfoDetailsBox>
     </Box>
