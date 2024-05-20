@@ -1,3 +1,4 @@
+import { ContentSection } from 'src/components/ContentSection'
 import { Colors } from 'src/styles/tokens/colors'
 import { Sizes } from 'src/styles/tokens/sizes'
 import styled from 'styled-components'
@@ -6,6 +7,13 @@ export const Box = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor};
   min-height: 100vh;
 `
+
+export const Content = styled(ContentSection).attrs(() => ({
+  contentStyle: {
+    padding: Sizes.lg,
+    boxSizing: 'border-box',
+  },
+}))``
 
 export const SectionBox = styled.div`
   display: grid;
