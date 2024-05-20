@@ -76,30 +76,6 @@ export const buildTree = ({
   return tree
 }
 
-/**
- * Flattens the asset tree array items into a flat array.
- *
- * @param {TreeNode[]} tree - The array of nested items to flatten.
- * @returns {TreeNode[]} A flat array of all items.
- */
-export const flattenTreeNodeChildren = (tree: TreeNode[]): TreeNode[] => {
-  const result: TreeNode[] = []
-
-  const recurse = (items: TreeNode[]) => {
-    for (const item of items) {
-      result.push(item)
-
-      if (item.children && item.children.length > 0) {
-        recurse(item.children)
-      }
-    }
-  }
-
-  recurse(tree)
-
-  return result
-}
-
 interface ProcessTreeSearchParams {
   /** The array of items to filter. */
   tree: TreeNode[]
