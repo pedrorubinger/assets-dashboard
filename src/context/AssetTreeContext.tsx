@@ -56,7 +56,6 @@ export const AssetTreeProvider = ({
         onToggleNodeState,
       }}
     >
-      {/*  */}
       {children}
     </AssetTreeContext.Provider>
   )
