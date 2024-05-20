@@ -78,6 +78,6 @@ export const StyledButton = styled.button<ButtonProps>`
   }
 `
 
-export const IconImg = styled.img`
+export const IconBox = styled.div`
   margin-right: ${Sizes.sm}px;
 `

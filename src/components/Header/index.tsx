@@ -1,5 +1,6 @@
+import { useCallback, useEffect, useState } from 'react'
+
 import Logo from 'src/assets/logo-tractian.svg'
-import GoldIcon from 'src/assets/gold-icon.svg'
 import { Box, ButtonBox } from 'src/components/Header/styles'
 import { Button } from 'src/components/Button'
 import { SkeletonLoader } from 'src/components/Skeleton/styles'
@@ -7,8 +8,8 @@ import { Company } from 'src/interfaces/company'
 import { useCompanyStore } from 'src/store/company'
 import { ButtonVariant } from 'src/interfaces/button'
 import { WindowEvent } from 'src/utils/constants/windowEvent'
-import { useCallback, useEffect, useState } from 'react'
 import { getCompanies } from 'src/services/companies'
+import { GoldIcon } from 'src/components/Vector/GoldIcon'
 
 interface Props {}
 
@@ -76,7 +77,7 @@ export const Header: React.FC<Props> = ({}) => {
               <Button
                 key={id}
                 variant={variant}
-                iconSrc={GoldIcon}
+                Icon={GoldIcon}
                 title="Clique para selecionar esta empresa"
                 onClick={() => onSelectCompany({ id, name })}
               >

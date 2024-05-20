@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react'
 
 import { ButtonSize, ButtonVariant } from 'src/interfaces/button'
-import { IconImg, StyledButton } from 'src/components/Button/styles'
+import { IconBox, StyledButton } from 'src/components/Button/styles'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
@@ -9,19 +9,23 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize
   /** @default 'primary' */
   variant?: ButtonVariant
-  iconSrc?: string
+  Icon?: React.ElementType
 }
 
 export const Button: React.FC<Props> = ({
   children,
-  iconSrc,
+  Icon,
   size = 'sm',
   variant = 'primary',
   ...rest
 }) => {
   return (
     <StyledButton $variant={variant} $size={size} {...rest}>
-      {!!iconSrc && <IconImg src={iconSrc} />}
+      {!!Icon && (
+        <IconBox>
+          <Icon />
+        </IconBox>
+      )}
       {children}
     </StyledButton>
   )

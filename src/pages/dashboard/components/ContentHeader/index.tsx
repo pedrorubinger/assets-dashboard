@@ -1,5 +1,3 @@
-import RayIcon from 'src/assets/ray-icon.svg'
-import InfoIcon from 'src/assets/info-icon.svg'
 import {
   Box,
   StatusBox,
@@ -9,6 +7,8 @@ import {
 } from 'src/pages/dashboard/components/ContentHeader/styles'
 import { Button } from 'src/components/Button'
 import { useCompanyStore } from 'src/store/company'
+import { RayIcon } from 'src/components/Vector/RayIcon'
+import { InfoIcon } from 'src/components/Vector/InfoIcon'
 
 interface Props {}
 
@@ -25,11 +25,11 @@ export const DashboardContentHeader: React.FC<Props> = () => {
       </TitleBox>
 
       <StatusBox>
-        <Button size="md" iconSrc={RayIcon}>
+        <Button size="md" Icon={RayIcon}>
           Sensor de energia
         </Button>
 
-        <Button size="md" iconSrc={InfoIcon} variant="outlined">
+        <Button size="md" Icon={InfoIcon} variant="outlined">
           Crítico
         </Button>
       </StatusBox>
