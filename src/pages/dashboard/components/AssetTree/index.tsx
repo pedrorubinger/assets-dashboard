@@ -5,6 +5,7 @@ import { AssetTreeContext } from 'src/context/AssetTreeContext'
 import { getSensorStatus } from 'src/pages/dashboard/utils/helpers/assetTree'
 import {
   Box,
+  ContentBox,
   HeaderBox,
   ItemLine,
   List,
@@ -102,11 +103,13 @@ export const AssetTree: React.FC<Props> = () => {
     >
       {!tree.length && renderEmptyMessage()}
 
-      <List>
-        {tree.map((node) => {
-          return renderNode(node, true)
-        })}
-      </List>
+      <ContentBox>
+        <List>
+          {tree.map((node) => {
+            return renderNode(node, true)
+          })}
+        </List>
+      </ContentBox>
     </Box>
   )
 }

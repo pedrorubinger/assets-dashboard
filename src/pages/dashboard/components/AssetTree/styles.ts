@@ -7,19 +7,14 @@ import { ContentSection } from 'src/components/ContentSection'
 export const Box = styled(ContentSection).attrs(() => ({
   headerStyle: { padding: 0 },
   contentStyle: {
-    overflowY: 'auto',
-    overflowX: 'hidden',
+    overflow: 'hidden',
     boxSizing: 'border-box',
-    paddingLeft: Sizes.sm1,
+    padding: 0,
   },
-}))`
-  max-height: 550px;
-  overflow: auto;
-`
+}))``
 
 export const List = styled.ul`
   margin: 0;
-  overflow-x: auto;
 `
 
 interface ListItemProps {
@@ -77,4 +72,12 @@ export const NoItemsMessage = styled.span`
 
 export const Strong = styled.strong`
   font-weight: 500;
+`
+
+export const ContentBox = styled.div`
+  max-height: 500px;
+
+  overflow: auto;
+
+  padding: ${Sizes.sm1}px;
 `
