@@ -9,10 +9,7 @@ interface AssetTreeContextProviderProps {
   children: React.ReactNode
 }
 
-interface SelectedTreeNode {
-  id: string
-  name: string
-}
+type SelectedTreeNode = TreeNode
 
 interface AssetTreeContextType {
   base: TreeNode[]
@@ -40,8 +37,10 @@ export const AssetTreeProvider = ({
   const isBuildingTree = !!data && !base.length
   const isLoading = isFetching || isBuildingTree
 
-  const onToggleNodeState = ({ id, name }: SelectedTreeNode) => {
-    setSelected({ id, name })
+  const onToggleNodeState = (node: SelectedTreeNode) => {
+    const { id } = node
+
+    setSelected(node)
     setExpanded((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     )

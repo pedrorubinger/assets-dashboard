@@ -59,7 +59,7 @@ export const AssetTree: React.FC<Props> = () => {
     return (
       <ListItem key={node.id} $isRoot={isRoot}>
         <ItemLine
-          onClick={() => onToggleNodeState({ id: node.id, name: node.name })}
+          onClick={() => onToggleNodeState(node)}
           $isSelected={isSelected}
         >
           {!!hasChildren && Chevron}
