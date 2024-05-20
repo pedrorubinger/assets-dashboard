@@ -1,6 +1,10 @@
-import { Asset } from 'src/interfaces/asset'
+import { Asset, AssetSensorType, AssetStatus } from 'src/interfaces/asset'
 import { CompanyLocation } from 'src/interfaces/company'
-import { TreeNode, TreeNodeType } from 'src/interfaces/tree'
+import {
+  AssetTreeFilterType,
+  TreeNode,
+  TreeNodeType,
+} from 'src/interfaces/tree'
 
 interface BuildTreeParams {
   locations: CompanyLocation[]
@@ -76,11 +80,65 @@ export const buildTree = ({
   return tree
 }
 
+type ValidateFilterSearchMatchParams = Omit<ProcessTreeSearchParams, 'tree'> & {
+  node: TreeNode
+}
+
+interface ValidateFilterSearchMatchResponse {
+  filterMatchesNode: boolean
+  searchMatchesNode: boolean
+}
+
+/**
+ * Validates whether a given TreeNode matches the searched value and active filters.
+ * @param {ValidateFilterSearchMatchParams} params - Parameters for validation.
+ * @param {TreeNode} params.node - The TreeNode.
+ * @param {string | undefined} params.search - The searched value.
+ * @param {AssetTreeFilterType[] | undefined} params.filters - The active filters.
+ * @returns {ValidateFilterSearchMatchResponse} An object indicating whether the node matches the filter and search criteria.
+ */
+const validateFilterSearchMatch = ({
+  node,
+  search,
+  filters,
+}: ValidateFilterSearchMatchParams): ValidateFilterSearchMatchResponse => {
+  let searchMatchesNode: boolean = false
+  let filterMatchesNode: boolean = false
+
+  if (search) {
+    const formattedSearch = search.toLowerCase()
+    const formattedName = node.name.toLowerCase()
+
+    searchMatchesNode = formattedName.includes(formattedSearch)
+  } else {
+    searchMatchesNode = true
+  }
+
+  if (filters?.length) {
+    if (
+      filters.includes('type') &&
+      node.sensorType === AssetSensorType.ENERGY
+    ) {
+      filterMatchesNode = true
+    }
+
+    if (filters.includes('status') && node.status === AssetStatus.ALERT) {
+      filterMatchesNode = true
+    }
+  } else {
+    filterMatchesNode = true
+  }
+
+  return { filterMatchesNode, searchMatchesNode }
+}
+
 interface ProcessTreeSearchParams {
-  /** The array of items to filter. */
+  /** The array of items to filter */
   tree: TreeNode[]
   /** The searched name */
   search?: string
+  /** The active filters */
+  filters?: AssetTreeFilterType[]
 }
 
 /**
@@ -91,15 +149,18 @@ interface ProcessTreeSearchParams {
  */
 export const processTreeSearch = ({
   tree = [],
+  filters = [],
   search,
 }: ProcessTreeSearchParams): TreeNode[] => {
-  if (!search) return tree
-
   const filter = (items: TreeNode[]): TreeNode[] => {
     return items.reduce((acc: TreeNode[], item: TreeNode) => {
-      const formattedSearch = search.toLowerCase()
-      const formattedName = item.name.toLowerCase()
-      const searchMatchesNode = formattedName.includes(formattedSearch)
+      const { filterMatchesNode, searchMatchesNode } =
+        validateFilterSearchMatch({
+          node: item,
+          search,
+          filters,
+        })
+      const matchesNode = filterMatchesNode && searchMatchesNode
 
       let filteredItem: TreeNode | null = null
 
@@ -114,7 +175,7 @@ export const processTreeSearch = ({
         }
       }
 
-      if (searchMatchesNode) {
+      if (matchesNode) {
         filteredItem = {
           ...item,
           children: filteredItem ? filteredItem.children : item.children,

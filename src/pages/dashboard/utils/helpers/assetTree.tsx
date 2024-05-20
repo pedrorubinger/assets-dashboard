@@ -14,10 +14,6 @@ export const getSensorStatus = (node: TreeNode) => {
 
   if (isSensorStatusCritical) Status = <RedBadgeIcon />
   if (isSensorStatusOperating) Status = <GreenBadgeIcon />
-  if (isSensorStatusOperating && isSensorTypeEnergy) {
-    Status = null
-    Type = <BoltIcon />
-  }
   if (isSensorTypeEnergy) Type = <BoltIcon />
 
   return { Status, Type }

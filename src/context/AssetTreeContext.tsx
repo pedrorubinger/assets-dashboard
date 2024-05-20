@@ -3,7 +3,7 @@ import { createContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useCompanyStore } from 'src/store/company'
 import { buildTree, processTreeSearch } from 'src/utils/helpers/tree'
 import { useFetchAssetTreeData } from 'src/pages/dashboard/hooks/useFetchAssetTreeData'
-import { TreeNode } from 'src/interfaces/tree'
+import { AssetTreeFilterType, TreeNode } from 'src/interfaces/tree'
 
 interface AssetTreeContextProviderProps {
   children: React.ReactNode
@@ -17,18 +17,22 @@ interface AssetTreeContextType {
   expanded: string[]
   isLoading: boolean
   selected?: SelectedTreeNode
+  filters?: AssetTreeFilterType[]
+  onFilter: (filter: AssetTreeFilterType) => void
   onToggleNodeState: (params: SelectedTreeNode) => void
   onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const AssetTreeContext = createContext({} as AssetTreeContextType)
 
+/* For future implementations: some of this logic can be moved to separate hooks */
 export const AssetTreeProvider = ({
   children,
 }: AssetTreeContextProviderProps) => {
   const [expanded, setExpanded] = useState<string[]>([])
   const [selected, setSelected] = useState<SelectedTreeNode | undefined>()
   const [search, setSearch] = useState<string | undefined>()
+  const [filters, setFilters] = useState<AssetTreeFilterType[] | undefined>()
 
   const { company } = useCompanyStore()
   const { isFetching, data } = useFetchAssetTreeData({
@@ -37,14 +41,16 @@ export const AssetTreeProvider = ({
 
   const base = useMemo(() => buildTree(data), [data])
   const tree = useMemo(
-    () => processTreeSearch({ tree: base, search }),
-    [base, search],
+    () => processTreeSearch({ tree: base, search, filters }),
+    [base, search, filters],
   )
 
   const searchTimeout = useRef<number | null>(null)
 
   const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
+
+    if (selected) setSelected(undefined)
 
     searchTimeout.current = setTimeout(() => {
       setSearch(value)
@@ -63,6 +69,15 @@ export const AssetTreeProvider = ({
     )
   }
 
+  const onFilter = (filter: AssetTreeFilterType) => {
+    if (selected) setSelected(undefined)
+
+    setFilters((prev) => {
+      if (prev?.includes(filter)) return prev.filter((item) => item !== filter)
+      return prev?.length ? [...prev, filter] : [filter]
+    })
+  }
+
   useEffect(() => {
     return () => {
       if (searchTimeout.current) clearTimeout(searchTimeout.current)
@@ -77,6 +92,8 @@ export const AssetTreeProvider = ({
         selected,
         isLoading,
         tree,
+        filters,
+        onFilter,
         onSearch,
         onToggleNodeState,
       }}

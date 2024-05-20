@@ -39,3 +39,7 @@ export const StatusBox = styled.div`
   align-items: center;
   gap: ${Sizes.sm}px;
 `
+
+export const ButtonText = styled.span`
+  margin-left: ${Sizes.sm}px;
+`

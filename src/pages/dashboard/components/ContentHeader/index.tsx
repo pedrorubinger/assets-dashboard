@@ -1,5 +1,6 @@
 import {
   Box,
+  ButtonText,
   StatusBox,
   SubTitle,
   Title,
@@ -7,15 +8,21 @@ import {
 } from 'src/pages/dashboard/components/ContentHeader/styles'
 import { Button } from 'src/components/Button'
 import { useCompanyStore } from 'src/store/company'
-import { BoltIcon } from 'src/components/Vector/BoltIcon'
 import { InfoIcon } from 'src/components/Vector/InfoIcon'
+import { useContext } from 'react'
+import { AssetTreeContext } from 'src/context/AssetTreeContext'
+import { Colors } from 'src/styles/tokens/colors'
+import { BoltIconOutlined } from 'src/components/Vector/BoltIconOutlined'
 
 interface Props {}
 
 export const DashboardContentHeader: React.FC<Props> = () => {
   const { company } = useCompanyStore()
+  const { filters, onFilter } = useContext(AssetTreeContext)
 
   const companyName = company?.name
+  const isEnergySensorTypeFilterActive = filters?.includes('type')
+  const isEnergySensorStatusFilterActive = filters?.includes('status')
 
   return (
     <Box>
@@ -28,18 +35,33 @@ export const DashboardContentHeader: React.FC<Props> = () => {
         <Button
           size="md"
           title="Clique para filtrar por componentes com sensor de energia"
-          Icon={<BoltIcon color="white" />}
+          variant={isEnergySensorTypeFilterActive ? 'primary' : 'outlined'}
+          onClick={() => onFilter('type')}
         >
-          Sensor de energia
+          <BoltIconOutlined
+            color={
+              isEnergySensorTypeFilterActive
+                ? 'white'
+                : (Colors.blue500 as keyof typeof Colors)
+            }
+          />
+          <ButtonText>Sensor de energia</ButtonText>
         </Button>
 
         <Button
           size="md"
           title="Clique para filtrar por componentes cujo sensor está em estado crítico"
-          Icon={<InfoIcon />}
-          variant="outlined"
+          variant={isEnergySensorStatusFilterActive ? 'primary' : 'outlined'}
+          onClick={() => onFilter('status')}
         >
-          Crítico
+          <InfoIcon
+            color={
+              isEnergySensorStatusFilterActive
+                ? 'white'
+                : (Colors.blue500 as keyof typeof Colors)
+            }
+          />
+          <ButtonText>Crítico</ButtonText>
         </Button>
       </StatusBox>
     </Box>
