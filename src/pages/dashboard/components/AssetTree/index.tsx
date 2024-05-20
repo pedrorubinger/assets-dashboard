@@ -19,6 +19,10 @@ import { Input } from 'src/components/Input'
 import { MagIcon } from 'src/components/Vector/MagIcon'
 import { processTreeSearch } from 'src/utils/helpers/tree'
 import { AssetTreeContext } from 'src/context/AssetTreeContext'
+import { AssetSensorType, AssetStatus } from 'src/interfaces/asset'
+import { RedBadgeIcon } from 'src/components/Vector/RedBadgeIcon'
+import { GreenBadgeIcon } from 'src/components/Vector/GreenBadgeIcon'
+import { BoltIcon } from 'src/components/Vector/BoltIcon'
 
 interface Props {}
 
@@ -39,6 +43,25 @@ export const AssetTree: React.FC<Props> = () => {
     }, 500)
   }
 
+  const getSensorStatus = (node: TreeNode) => {
+    let Status: JSX.Element | null = null
+    let Type: JSX.Element | null = null
+
+    const isSensorStatusCritical = node.status === AssetStatus.ALERT
+    const isSensorStatusOperating = node.status === AssetStatus.OPERATING
+    const isSensorTypeEnergy = node.sensorType === AssetSensorType.ENERGY
+
+    if (isSensorStatusCritical) Status = <RedBadgeIcon />
+    if (isSensorStatusOperating) Status = <GreenBadgeIcon />
+    if (isSensorStatusOperating && isSensorTypeEnergy) {
+      Status = null
+      Type = <BoltIcon />
+    }
+    if (isSensorTypeEnergy) Type = <BoltIcon />
+
+    return { Status, Type }
+  }
+
   const renderNode = (node: TreeNode, isRoot = false) => {
     const hasChildren = !!node.children?.length
     const isNodeOpen = expanded.includes(node.id)
@@ -55,6 +78,7 @@ export const AssetTree: React.FC<Props> = () => {
     ) : (
       <ChevronRightIcon color={chevronIconColor} />
     )
+    const { Status, Type } = getSensorStatus(node)
 
     return (
       <ListItem key={node.id} $isRoot={isRoot}>
@@ -66,6 +90,8 @@ export const AssetTree: React.FC<Props> = () => {
 
           <IconComponent color={nodeIconColor} />
           <ListText $isSelected={isSelected}>{node.name}</ListText>
+          {Status}
+          {Type}
         </ItemLine>
 
         {!!hasChildren && !!isNodeOpen && (

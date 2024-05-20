@@ -7,7 +7,7 @@ import {
 } from 'src/pages/dashboard/components/ContentHeader/styles'
 import { Button } from 'src/components/Button'
 import { useCompanyStore } from 'src/store/company'
-import { RayIcon } from 'src/components/Vector/RayIcon'
+import { BoltIcon } from 'src/components/Vector/BoltIcon'
 import { InfoIcon } from 'src/components/Vector/InfoIcon'
 
 interface Props {}
@@ -25,7 +25,7 @@ export const DashboardContentHeader: React.FC<Props> = () => {
       </TitleBox>
 
       <StatusBox>
-        <Button size="md" Icon={RayIcon}>
+        <Button size="md" Icon={BoltIcon}>
           Sensor de energia
         </Button>
 
