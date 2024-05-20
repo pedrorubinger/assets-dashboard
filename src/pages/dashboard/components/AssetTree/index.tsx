@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { TreeNode } from 'src/interfaces/tree'
 import {
@@ -18,14 +18,13 @@ import { Colors } from 'src/styles/tokens/colors'
 import { Input } from 'src/components/Input'
 import { MagIcon } from 'src/components/Vector/MagIcon'
 import { processTreeSearch } from 'src/utils/helpers/tree'
+import { AssetTreeContext } from 'src/context/AssetTreeContext'
 
-interface Props {
-  base: TreeNode[]
-}
+interface Props {}
 
-export const AssetTree: React.FC<Props> = ({ base }) => {
-  const [expanded, setExpanded] = useState<string[]>([])
-  const [selected, setSelected] = useState<string | undefined>()
+export const AssetTree: React.FC<Props> = () => {
+  const { base, selected, expanded, onToggleNodeState } =
+    useContext(AssetTreeContext)
   const [search, setSearch] = useState<string | undefined>()
 
   const tree = processTreeSearch({ tree: base, search })
@@ -38,13 +37,6 @@ export const AssetTree: React.FC<Props> = ({ base }) => {
     searchTimeout.current = setTimeout(() => {
       setSearch(value)
     }, 500)
-  }
-
-  const onToggleStatus = (id: string) => {
-    setSelected(id)
-    setExpanded((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-    )
   }
 
   const renderNode = (node: TreeNode, isRoot = false) => {
@@ -67,7 +59,7 @@ export const AssetTree: React.FC<Props> = ({ base }) => {
     return (
       <ListItem key={node.id} $isRoot={isRoot}>
         <ItemLine
-          onClick={() => onToggleStatus(node.id)}
+          onClick={() => onToggleNodeState(node.id)}
           $isSelected={isSelected}
         >
           {!!hasChildren && Chevron}
