@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 
 import { TreeNode } from 'src/interfaces/tree'
+import { AssetTreeContext } from 'src/context/AssetTreeContext'
+import { getSensorStatus } from 'src/pages/dashboard/utils/helpers/assetTree'
 import {
   Box,
   HeaderBox,
@@ -17,36 +19,12 @@ import { ChevronRightIcon } from 'src/components/Vector/ChevronRightIcon'
 import { Colors } from 'src/styles/tokens/colors'
 import { Input } from 'src/components/Input'
 import { MagIcon } from 'src/components/Vector/MagIcon'
-import { AssetTreeContext } from 'src/context/AssetTreeContext'
-import { AssetSensorType, AssetStatus } from 'src/interfaces/asset'
-import { RedBadgeIcon } from 'src/components/Vector/RedBadgeIcon'
-import { GreenBadgeIcon } from 'src/components/Vector/GreenBadgeIcon'
-import { BoltIcon } from 'src/components/Vector/BoltIcon'
 
 interface Props {}
 
 export const AssetTree: React.FC<Props> = () => {
   const { tree, search, selected, expanded, onToggleNodeState, onSearch } =
     useContext(AssetTreeContext)
-
-  const getSensorStatus = (node: TreeNode) => {
-    let Status: JSX.Element | null = null
-    let Type: JSX.Element | null = null
-
-    const isSensorStatusCritical = node.status === AssetStatus.ALERT
-    const isSensorStatusOperating = node.status === AssetStatus.OPERATING
-    const isSensorTypeEnergy = node.sensorType === AssetSensorType.ENERGY
-
-    if (isSensorStatusCritical) Status = <RedBadgeIcon />
-    if (isSensorStatusOperating) Status = <GreenBadgeIcon />
-    if (isSensorStatusOperating && isSensorTypeEnergy) {
-      Status = null
-      Type = <BoltIcon />
-    }
-    if (isSensorTypeEnergy) Type = <BoltIcon />
-
-    return { Status, Type }
-  }
 
   const renderNode = (node: TreeNode, isRoot = false) => {
     const hasChildren = !!node.children?.length
