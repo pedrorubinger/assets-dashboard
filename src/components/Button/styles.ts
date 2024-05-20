@@ -28,12 +28,14 @@ const getBackgroundColor = (theme: Theme, variant: ButtonVariant) => {
 
 const getBorderColor = (theme: Theme, variant: ButtonVariant) => {
   if (variant === 'outlined') return theme.buttonOutlinedBorderColor
+
+  return 'transparent'
 }
 
 const getBorderWidth = (variant: ButtonVariant) => {
   if (variant === 'outlined') return '1px'
 
-  return '0px'
+  return '1px'
 }
 
 const getColor = (theme: Theme, variant: ButtonVariant) => {
