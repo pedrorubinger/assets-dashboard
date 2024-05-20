@@ -36,8 +36,10 @@ export const AssetTreeProvider = ({
   })
 
   const base = useMemo(() => buildTree(data), [data])
-
-  const tree = processTreeSearch({ tree: base, search })
+  const tree = useMemo(
+    () => processTreeSearch({ tree: base, search }),
+    [base, search],
+  )
 
   const searchTimeout = useRef<number | null>(null)
 
