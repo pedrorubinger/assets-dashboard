@@ -1,4 +1,4 @@
-import { createContext, useMemo, useRef, useState } from 'react'
+import { createContext, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useCompanyStore } from 'src/store/company'
 import { buildTree, processTreeSearch } from 'src/utils/helpers/tree'
@@ -62,6 +62,12 @@ export const AssetTreeProvider = ({
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     )
   }
+
+  useEffect(() => {
+    return () => {
+      if (searchTimeout.current) clearTimeout(searchTimeout.current)
+    }
+  }, [])
 
   return (
     <AssetTreeContext.Provider
