@@ -9,3 +9,5 @@ export interface TreeNode extends Partial<CompanyLocation>, Partial<Asset> {
   type: TreeNodeType
   children?: TreeNode[]
 }
+
+export type AssetTreeFilterType = 'status' | 'type'

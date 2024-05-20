@@ -1,7 +1,7 @@
-import { createContext, useMemo, useState } from 'react'
+import { createContext, useMemo, useRef, useState } from 'react'
 
 import { useCompanyStore } from 'src/store/company'
-import { buildTree } from 'src/utils/helpers/tree'
+import { buildTree, processTreeSearch } from 'src/utils/helpers/tree'
 import { useFetchAssetTreeData } from 'src/pages/dashboard/hooks/useFetchAssetTreeData'
 import { TreeNode } from 'src/interfaces/tree'
 
@@ -12,11 +12,13 @@ interface AssetTreeContextProviderProps {
 type SelectedTreeNode = TreeNode
 
 interface AssetTreeContextType {
-  base: TreeNode[]
+  tree: TreeNode[]
+  search?: string
   expanded: string[]
   isLoading: boolean
   selected?: SelectedTreeNode
   onToggleNodeState: (params: SelectedTreeNode) => void
+  onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const AssetTreeContext = createContext({} as AssetTreeContextType)
@@ -26,6 +28,7 @@ export const AssetTreeProvider = ({
 }: AssetTreeContextProviderProps) => {
   const [expanded, setExpanded] = useState<string[]>([])
   const [selected, setSelected] = useState<SelectedTreeNode | undefined>()
+  const [search, setSearch] = useState<string | undefined>()
 
   const { company } = useCompanyStore()
   const { isFetching, data } = useFetchAssetTreeData({
@@ -33,6 +36,18 @@ export const AssetTreeProvider = ({
   })
 
   const base = useMemo(() => buildTree(data), [data])
+
+  const tree = processTreeSearch({ tree: base, search })
+
+  const searchTimeout = useRef<number | null>(null)
+
+  const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+
+    searchTimeout.current = setTimeout(() => {
+      setSearch(value)
+    }, 500)
+  }
 
   const isBuildingTree = !!data && !base.length
   const isLoading = isFetching || isBuildingTree
@@ -50,9 +65,11 @@ export const AssetTreeProvider = ({
     <AssetTreeContext.Provider
       value={{
         expanded,
+        search,
         selected,
         isLoading,
-        base,
+        tree,
+        onSearch,
         onToggleNodeState,
       }}
     >

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext } from 'react'
 
 import { TreeNode } from 'src/interfaces/tree'
 import {
@@ -17,7 +17,6 @@ import { ChevronRightIcon } from 'src/components/Vector/ChevronRightIcon'
 import { Colors } from 'src/styles/tokens/colors'
 import { Input } from 'src/components/Input'
 import { MagIcon } from 'src/components/Vector/MagIcon'
-import { processTreeSearch } from 'src/utils/helpers/tree'
 import { AssetTreeContext } from 'src/context/AssetTreeContext'
 import { AssetSensorType, AssetStatus } from 'src/interfaces/asset'
 import { RedBadgeIcon } from 'src/components/Vector/RedBadgeIcon'
@@ -27,21 +26,8 @@ import { BoltIcon } from 'src/components/Vector/BoltIcon'
 interface Props {}
 
 export const AssetTree: React.FC<Props> = () => {
-  const { base, selected, expanded, onToggleNodeState } =
+  const { tree, search, selected, expanded, onToggleNodeState, onSearch } =
     useContext(AssetTreeContext)
-  const [search, setSearch] = useState<string | undefined>()
-
-  const tree = processTreeSearch({ tree: base, search })
-
-  const searchTimeout = useRef<number | null>(null)
-
-  const onFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-
-    searchTimeout.current = setTimeout(() => {
-      setSearch(value)
-    }, 500)
-  }
 
   const getSensorStatus = (node: TreeNode) => {
     let Status: JSX.Element | null = null
@@ -123,12 +109,6 @@ export const AssetTree: React.FC<Props> = () => {
     )
   }
 
-  useEffect(() => {
-    return () => {
-      if (searchTimeout.current) clearTimeout(searchTimeout.current)
-    }
-  }, [])
-
   return (
     <Box
       header={
@@ -136,7 +116,7 @@ export const AssetTree: React.FC<Props> = () => {
           <Input
             name="filter"
             placeholder="Buscar Ativo ou Local"
-            onChange={onFilter}
+            onChange={onSearch}
             icon={<MagIcon />}
           />
         </HeaderBox>
