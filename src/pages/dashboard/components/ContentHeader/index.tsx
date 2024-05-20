@@ -25,11 +25,11 @@ export const DashboardContentHeader: React.FC<Props> = () => {
       </TitleBox>
 
       <StatusBox>
-        <Button size="md" Icon={BoltIcon}>
+        <Button size="md" Icon={<BoltIcon color="white" />}>
           Sensor de energia
         </Button>
 
-        <Button size="md" Icon={InfoIcon} variant="outlined">
+        <Button size="md" Icon={<InfoIcon />} variant="outlined">
           Crítico
         </Button>
       </StatusBox>

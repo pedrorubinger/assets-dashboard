@@ -9,7 +9,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize
   /** @default 'primary' */
   variant?: ButtonVariant
-  Icon?: React.ElementType
+  Icon?: React.ReactNode
 }
 
 export const Button: React.FC<Props> = ({
@@ -21,11 +21,7 @@ export const Button: React.FC<Props> = ({
 }) => {
   return (
     <StyledButton $variant={variant} $size={size} {...rest}>
-      {!!Icon && (
-        <IconBox>
-          <Icon />
-        </IconBox>
-      )}
+      {!!Icon && <IconBox>{Icon}</IconBox>}
       {children}
     </StyledButton>
   )

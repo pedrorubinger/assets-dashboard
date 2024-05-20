@@ -77,7 +77,7 @@ export const Header: React.FC<Props> = ({}) => {
               <Button
                 key={id}
                 variant={variant}
-                Icon={GoldIcon}
+                Icon={<GoldIcon />}
                 title="Clique para selecionar esta empresa"
                 onClick={() => onSelectCompany({ id, name })}
               >
