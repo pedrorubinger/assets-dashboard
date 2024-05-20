@@ -13,7 +13,7 @@ import { DashboardContentHeader } from 'src/pages/dashboard/components/ContentHe
 import { AssetTree } from 'src/pages/dashboard/components/AssetTree'
 import { EmptyState } from 'src/components/EmptyState'
 import { AssetTreeContext } from 'src/context/AssetTreeContext'
-import { AssetDetails } from './components/AssetDetails'
+import { AssetDetails } from 'src/pages/dashboard/components/AssetDetails'
 
 interface Props {}
 
