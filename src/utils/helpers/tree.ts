@@ -101,14 +101,28 @@ export const processTreeSearch = ({
       const formattedName = item.name.toLowerCase()
       const searchMatchesNode = formattedName.includes(formattedSearch)
 
-      if (searchMatchesNode) {
-        acc.push(item)
-      } else if (item.children) {
+      let filteredItem: TreeNode | null = null
+
+      if (item.children) {
         const filteredChildren = filter(item.children)
 
         if (filteredChildren.length > 0) {
-          acc.push(...filteredChildren)
+          filteredItem = {
+            ...item,
+            children: filteredChildren,
+          }
         }
+      }
+
+      if (searchMatchesNode) {
+        filteredItem = {
+          ...item,
+          children: filteredItem ? filteredItem.children : item.children,
+        }
+      }
+
+      if (filteredItem) {
+        acc.push(filteredItem)
       }
 
       return acc
