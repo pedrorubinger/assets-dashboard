@@ -74,7 +74,7 @@ export const Strong = styled.strong`
 `
 
 export const ContentBox = styled.div`
-  max-height: 500px;
+  max-height: 350px;
 
   overflow: auto;
 
