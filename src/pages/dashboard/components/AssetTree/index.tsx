@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { TreeNode } from 'src/interfaces/tree'
 import { AssetTreeContext } from 'src/context/AssetTreeContext'
@@ -24,6 +24,7 @@ import { MagIcon } from 'src/components/Vector/MagIcon'
 interface Props {}
 
 export const AssetTree: React.FC<Props> = () => {
+  const [inputSearchValue, setInputSearchValue] = useState('')
   const { tree, search, selected, expanded, onToggleNodeState, onSearch } =
     useContext(AssetTreeContext)
 
@@ -88,6 +89,10 @@ export const AssetTree: React.FC<Props> = () => {
     )
   }
 
+  useEffect(() => {
+    if (!search) setInputSearchValue('')
+  }, [search])
+
   return (
     <Box
       header={
@@ -95,15 +100,20 @@ export const AssetTree: React.FC<Props> = () => {
           <Input
             name="filter"
             placeholder="Buscar Ativo ou Local"
-            onChange={onSearch}
+            onChange={(e) => {
+              const { value } = e.target
+
+              setInputSearchValue(value ?? '')
+              onSearch(e)
+            }}
+            value={inputSearchValue}
             icon={<MagIcon />}
           />
         </HeaderBox>
       }
     >
-      {!tree.length && renderEmptyMessage()}
-
       <ContentBox>
+        {!tree.length && renderEmptyMessage()}
         <List>
           {tree.map((node) => {
             return renderNode(node, true)

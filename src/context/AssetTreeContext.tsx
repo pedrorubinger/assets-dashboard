@@ -84,6 +84,10 @@ export const AssetTreeProvider = ({
     }
   }, [])
 
+  useEffect(() => {
+    setSearch('')
+  }, [company])
+
   return (
     <AssetTreeContext.Provider
       value={{
