@@ -61,8 +61,7 @@ export const HeaderBox = styled.div`
 `
 
 export const NoItemsMessage = styled.span`
-  margin-top: ${Sizes.sm}px;
-  margin-right: ${Sizes.xlg}px;
+  margin: 0;
 
   font-size: ${Sizes.sm3}px;
   font-weight: 300;
